@@ -98,7 +98,7 @@ Int Fa 0/7
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
-   hostname CUCM-_
+   hostname CUCM-11
    enable secret pass
    service password-encryption
    no logging console
@@ -113,22 +113,22 @@ config t
       exec-timeout 0 0
    Int Fa 0/0
      no shutdown
-	 ip add 10._.100.8 255.255.255.0 
+	 ip add 10.11.100.8 255.255.255.0 
 	 end
    
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern _00
+   destination-pattern 1101
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern _01
+   destination-pattern 1102
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern _02
+   destination-pattern 1103
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern _03
+   destination-pattern 1104
    port 0/0/3
 end
 
@@ -140,31 +140,31 @@ telephony-service
    no auto-reg-ephone
    max-ephones 5
    max-dn 20
-   ip source-address 10._.100.8 port 2000
+   ip source-address 10.11.100.8 port 2000
    create cnf-files
 ephone-dn 1
-  number _11
+  number 1111
 ephone-dn 2
-  number _22
+  number 1122
 ephone-dn 3
-  number _33
+  number 1133
 ephone-dn 4
-  number _44
+  number 1144
 ephone-dn 5
-  number _55
+  number 1155
 ephone-dn 6
-  number _66
+  number 1166
 ephone-dn 7
-  number _77
+  number 1177
 ephone-dn 8
-  number _88	
+  number 1188	
 Ephone 1
-  Mac-address ____.____.____
+  Mac-address ccd8.c1fb.09ff
   type 8945
   button 1:1 2:3 3:2 4:4
   restart
 Ephone 2
-  Mac-address ____.____.____
+  Mac-address ccd8.c1fb.0817
   type 8945
   button 1:5 2:6 3:7 4:8
   restart  
