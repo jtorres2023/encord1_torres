@@ -404,43 +404,43 @@ SIP CONFIGURATION
 conf t
  voice service voip
   allow-connections h323 to sip
-          
+!       
   allow-connections sip to h323
   allow-connections sip to sip
   supplementary-service h450.12
  sip
-   bind control source-interface _____0/0
-   bind media source-interface _____0/0
+   bind control source-interface fa0/0
+   bind media source-interface fa0/0
    registrar server expires max 600 min 60
 !
  voice register global
   mode cme
-  source-address 192.168._.1 port 5060
+  source-address 10.11.100.8 port 5060
   max-dn 12
   max-pool 12
   authenticate register
   create profile sync
  voice register dn 1
-   number ____
+   number 1181
    allow watch
-   name _______
+   name 1181
  voice register dn 2
-   number ___
+   number 1182
    allow watch
-   name _______
+   name 1182
           
   voice register pool 1
-    id mac ____.____.____
+    id mac 00db.70dd.4301
     number 1 dn 1
     dtmf-relay sip-notify
-    username ____ password ____
+    username 1181 password 1181
     codec g711ulaw
 !
-  voice register pool 1
-    id mac ____.____.____
+  voice register pool 2
+    id mac a4a4.9009.1c84
     number 1 dn 2
     dtmf-relay sip-notify
-    username ____ password ____
+    username 1182 password 1182
     codec g711ulaw
 !
 *******call other countries!!!********
@@ -456,3 +456,20 @@ exit
 sip-ua
 sip-server ipv4:192.168.k.1
 
+GIVING 60%BANDWIDTH TO VOICE TO 40% EVERYTHING ELSE
+HOW TO CONFIGURE  QUALITY OF SERVICE 
+CUCM: 	"cm-pm-sp"
+config t
+class-map match-any VOICE
+ match protocol sip
+ match protocol rtp
+ match protocol sccp
+Policy-map QOS-POLICY
+  class VOICE
+   bandwidth  percent 60
+ class class-default
+  bandwidth percent 40
+interface fa0/0
+ service-policy output QOS-POLICY
+end
+show policy-map QOS-POLICY
